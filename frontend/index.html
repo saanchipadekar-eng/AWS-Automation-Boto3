@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AWS Automation Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AWS Automation
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="s3.html">S3</a>
+            <a href="ec2.html">EC2</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>AWS Automation Dashboard</h1>
+
+            <p>
+                Manage and automate your AWS resources
+                through a simple web-based dashboard
+                powered by Python, Flask and Boto3.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="s3.html">
+                    Manage S3
+                </a>
+
+                <a href="ec2.html">
+                    Manage EC2
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section class="dashboard">
+
+        <h2>AWS Resource Overview</h2>
+
+        <div class="cards">
+
+            <!-- S3 CARD -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🪣
+                </div>
+
+                <h3>Amazon S3</h3>
+
+                <p>
+                    Manage your S3 buckets
+                    and files.
+                </p>
+
+                <span id="bucketCount">
+                    Loading...
+                </span>
+
+                <br>
+
+                <a href="s3.html">
+                    Manage S3 →
+                </a>
+
+            </div>
+
+
+            <!-- EC2 CARD -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💻
+                </div>
+
+                <h3>Amazon EC2</h3>
+
+                <p>
+                    Launch and manage
+                    EC2 instances.
+                </p>
+
+                <span id="instanceCount">
+                    Loading...
+                </span>
+
+                <br>
+
+                <a href="ec2.html">
+                    Manage EC2 →
+                </a>
+
+            </div>
+
+
+            <!-- ABOUT CARD -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ℹ️
+                </div>
+
+                <h3>About Project</h3>
+
+                <p>
+                    Learn about the AWS
+                    automation project.
+                </p>
+
+                <span>
+                    Python • Flask • Boto3
+                </span>
+
+                <br>
+
+                <a href="about.html">
+                    Learn More →
+                </a>
+
+            </div>
+
+
+            <!-- CONTACT CARD -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📩
+                </div>
+
+                <h3>Contact</h3>
+
+                <p>
+                    Have a question?
+                    Send us a message.
+                </p>
+
+                <span>
+                    Contact Project Team
+                </span>
+
+                <br>
+
+                <a href="contact.html">
+                    Contact Us →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features">
+
+        <h2>Project Features</h2>
+
+        <div class="feature-container">
+
+            <div class="feature">
+
+                <h3>☁️ S3 Automation</h3>
+
+                <p>
+                    Create S3 buckets, upload files,
+                    view files, download files and
+                    delete files using Python and Boto3.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>💻 EC2 Automation</h3>
+
+                <p>
+                    Launch, view, start, stop and
+                    terminate EC2 instances directly
+                    from the dashboard.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <h3>🔐 AWS Security</h3>
+
+                <p>
+                    AWS resources are accessed through
+                    IAM permissions and Boto3 without
+                    exposing AWS credentials in the website.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>
+            AWS Automation Dashboard
+        </h3>
+
+        <p>
+            Python • Flask • Boto3 • Amazon S3 • Amazon EC2 • AWS IAM
+        </p>
+
+        <p>
+            AWS Automation Project
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>404 - Page Not Found</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #f5f7fa;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            color: #1f2937;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: white;
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+
+            gap: 22px;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Error */
+
+        .error-container {
+
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        .error-card {
+
+            background: white;
+
+            max-width: 600px;
+
+            width: 100%;
+
+            padding: 50px 35px;
+
+            text-align: center;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .error-number {
+
+            font-size: 90px;
+
+            font-weight: bold;
+
+            color: #2563eb;
+
+            margin-bottom: 10px;
+        }
+
+        .error-card h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 15px;
+        }
+
+        .error-card p {
+
+            color: #6b7280;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+        .home-button {
+
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        .home-button:hover {
+
+            background: #1d4ed8;
+        }
+
+        /* Footer */
+
+        footer {
+
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        footer p {
+
+            color: #d1d5db;
+
+            margin-top: 5px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+
+                margin-top: 15px;
+
+                gap: 12px;
+
+                flex-wrap: wrap;
+            }
+
+            .error-number {
+
+                font-size: 70px;
+            }
+
+            .error-card {
+
+                padding: 40px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+        AWS Automation Dashboard
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="s3.html">
+                S3
+            </a>
+        </li>
+
+        <li>
+            <a href="ec2.html">
+                EC2
+            </a>
+        </li>
+
+        <li>
+            <a href="about.html">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="contact.html">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Error -->
+
+<div class="error-container">
+
+    <div class="error-card">
+
+        <div class="error-number">
+            404
+        </div>
+
+        <h1>
+            Page Not Found
+        </h1>
+
+        <p>
+            Sorry, the page you are looking for
+            does not exist or may have been moved.
+        </p>
+
+        <a
+            href="index.html"
+            class="home-button"
+        >
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <h3>
+        AWS Automation Dashboard
+    </h3>
+
+    <p>
+        Python • Flask • Boto3 • AWS
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

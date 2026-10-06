@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - AWS Automation Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Signup Area */
+
+        .signup-container {
+            width: 100%;
+            max-width: 450px;
+
+            margin: 50px auto;
+
+            padding: 0 20px;
+        }
+
+        .signup-card {
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .signup-card h1 {
+            text-align: center;
+
+            margin-bottom: 10px;
+
+            font-size: 30px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #6b7280;
+
+            margin-bottom: 28px;
+
+            line-height: 1.5;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+        }
+
+        .signup-button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .signup-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* Messages */
+
+        .success-message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            border-radius: 7px;
+
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            border-radius: 7px;
+
+            text-align: center;
+        }
+
+        /* Login Link */
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #6b7280;
+        }
+
+        .login-link a {
+            color: #2563eb;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: auto;
+
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+        footer p {
+            color: #d1d5db;
+
+            margin-top: 5px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+
+                gap: 15px;
+
+                flex-wrap: wrap;
+            }
+
+            .signup-card {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+        AWS Automation Dashboard
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="login.html">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Signup -->
+
+<div class="signup-container">
+
+    <div class="signup-card">
+
+        <h1>
+            Create Account
+        </h1>
+
+        <p class="subtitle">
+            Create an account to access the
+            AWS Automation Dashboard.
+        </p>
+
+
+        <form id="signupForm">
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create a password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="signup-button"
+            >
+                Create Account
+            </button>
+
+
+        </form>
+
+
+        <div
+            id="successMessage"
+            class="success-message"
+        >
+            Account created successfully!
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="error-message"
+        >
+            Passwords do not match.
+        </div>
+
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <h3>
+        AWS Automation Dashboard
+    </h3>
+
+    <p>
+        Python • Flask • Boto3 • AWS
+    </p>
+
+</footer>
+
+
+<script>
+
+    document
+        .getElementById("signupForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const password =
+                    document.getElementById(
+                        "password"
+                    ).value;
+
+
+                const confirmPassword =
+                    document.getElementById(
+                        "confirmPassword"
+                    ).value;
+
+
+                const successMessage =
+                    document.getElementById(
+                        "successMessage"
+                    );
+
+
+                const errorMessage =
+                    document.getElementById(
+                        "errorMessage"
+                    );
+
+
+                successMessage.style.display =
+                    "none";
+
+                errorMessage.style.display =
+                    "none";
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                document
+                    .getElementById("signupForm")
+                    .reset();
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

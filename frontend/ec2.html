@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>EC2 Management - AWS Automation Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* ==============================
+           NAVIGATION
+        ============================== */
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           MAIN CONTAINER
+        ============================== */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+        }
+
+        /* ==============================
+           LAUNCH CARD
+        ============================== */
+
+        .launch-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 30px;
+        }
+
+        .launch-card h2 {
+            margin-bottom: 10px;
+        }
+
+        .launch-card p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .launch-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .launch-form input {
+            flex: 1;
+            min-width: 250px;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+        .launch-button {
+            background: #2563eb;
+            color: white;
+
+            border: none;
+            border-radius: 8px;
+
+            padding: 12px 22px;
+
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .launch-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* ==============================
+           INSTANCE HEADER
+        ============================== */
+
+        .instances-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .refresh-button {
+            background: #374151;
+            color: white;
+
+            border: none;
+            border-radius: 8px;
+
+            padding: 10px 18px;
+
+            cursor: pointer;
+        }
+
+        .refresh-button:hover {
+            background: #1f2937;
+        }
+
+        /* ==============================
+           INSTANCE GRID
+        ============================== */
+
+        #instancesContainer {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 20px;
+        }
+
+        .instance-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .instance-card h3 {
+            margin-bottom: 15px;
+
+            word-break: break-word;
+        }
+
+        .instance-info {
+            margin-bottom: 18px;
+
+            line-height: 1.8;
+        }
+
+        .running {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .stopped {
+            color: #d97706;
+            font-weight: bold;
+        }
+
+        .terminated {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* ==============================
+           ACTION BUTTONS
+        ============================== */
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            border: none;
+
+            padding: 9px 14px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            color: white;
+        }
+
+        .start-button {
+            background: #16a34a;
+        }
+
+        .stop-button {
+            background: #d97706;
+        }
+
+        .terminate-button {
+            background: #dc2626;
+        }
+
+        .actions button:hover {
+            opacity: 0.85;
+        }
+
+        /* ==============================
+           EMPTY MESSAGE
+        ============================== */
+
+        .empty-message {
+            background: white;
+
+            padding: 30px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            color: #6b7280;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .instances-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================
+         NAVIGATION
+    ============================== -->
+
+    <nav>
+
+        <h2>AWS Automation Dashboard</h2>
+
+        <div>
+
+            <a href="index.html">
+                Dashboard
+            </a>
+
+            <a href="s3.html">
+                S3
+            </a>
+
+            <a href="ec2.html">
+                EC2
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==============================
+         MAIN
+    ============================== -->
+
+    <div class="container">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <h1>
+                EC2 Management
+            </h1>
+
+            <p>
+                Launch and manage Amazon EC2 instances
+                using Python and Boto3.
+            </p>
+
+        </div>
+
+
+        <!-- ==============================
+             LAUNCH EC2
+        ============================== -->
+
+        <div class="launch-card">
+
+            <h2>
+                🚀 Launch New EC2 Instance
+            </h2>
+
+            <p>
+                Enter a name for your test EC2 instance.
+                The application will use the configured
+                AWS infrastructure automatically.
+            </p>
+
+            <div class="launch-form">
+
+                <input
+                    type="text"
+                    id="instanceName"
+                    placeholder="Example: My-Test-Server"
+                >
+
+                <button
+                    class="launch-button"
+                    onclick="launchInstance()"
+                >
+                    Launch EC2
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             INSTANCES HEADER
+        ============================== -->
+
+        <div class="instances-header">
+
+            <h2>
+                Your EC2 Instances
+            </h2>
+
+            <button
+                class="refresh-button"
+                onclick="loadInstances()"
+            >
+                🔄 Refresh Instances
+            </button>
+
+        </div>
+
+
+        <!-- ==============================
+             INSTANCES
+        ============================== -->
+
+        <div id="instancesContainer">
+
+            <div class="empty-message">
+                Loading EC2 instances...
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    ============================== -->
+
+    <script>
+
+        const API_URL =
+            "http://127.0.0.1:5000";
+
+
+        // ==========================================
+        // LOAD EC2 INSTANCES
+        // ==========================================
+
+        async function loadInstances() {
+
+            const container =
+                document.getElementById(
+                    "instancesContainer"
+                );
+
+            container.innerHTML =
+                '<div class="empty-message">Loading EC2 instances...</div>';
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/ec2/instances`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    container.innerHTML =
+                        `<div class="empty-message">
+                            Unable to load instances.
+                         </div>`;
+
+                    return;
+                }
+
+
+                if (data.instances.length === 0) {
+
+                    container.innerHTML =
+                        `<div class="empty-message">
+                            No EC2 instances found.
+                         </div>`;
+
+                    return;
+                }
+
+
+                container.innerHTML = "";
+
+
+                data.instances.forEach(
+                    instance => {
+
+                        const card =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        card.className =
+                            "instance-card";
+
+
+                        let stateClass =
+                            instance.state;
+
+
+                        let actions = "";
+
+
+                        if (
+                            instance.state ===
+                            "running"
+                        ) {
+
+                            actions = `
+                                <button
+                                    class="stop-button"
+                                    onclick="stopInstance('${instance.instance_id}')"
+                                >
+                                    Stop
+                                </button>
+
+                                <button
+                                    class="terminate-button"
+                                    onclick="terminateInstance('${instance.instance_id}')"
+                                >
+                                    Terminate
+                                </button>
+                            `;
+
+                        }
+
+
+                        else if (
+                            instance.state ===
+                            "stopped"
+                        ) {
+
+                            actions = `
+                                <button
+                                    class="start-button"
+                                    onclick="startInstance('${instance.instance_id}')"
+                                >
+                                    Start
+                                </button>
+
+                                <button
+                                    class="terminate-button"
+                                    onclick="terminateInstance('${instance.instance_id}')"
+                                >
+                                    Terminate
+                                </button>
+                            `;
+
+                        }
+
+
+                        else if (
+                            instance.state ===
+                            "terminated"
+                        ) {
+
+                            actions = `
+                                <span class="terminated">
+                                    Instance Terminated
+                                </span>
+                            `;
+
+                        }
+
+
+                        else {
+
+                            actions = `
+                                <span>
+                                    State: ${instance.state}
+                                </span>
+                            `;
+
+                        }
+
+
+                        card.innerHTML = `
+
+                            <h3>
+                                💻 ${instance.instance_id}
+                            </h3>
+
+                            <div class="instance-info">
+
+                                <div>
+                                    <strong>
+                                        State:
+                                    </strong>
+
+                                    <span class="${stateClass}">
+                                        ${instance.state}
+                                    </span>
+                                </div>
+
+
+                                <div>
+                                    <strong>
+                                        Instance Type:
+                                    </strong>
+
+                                    ${instance.instance_type}
+                                </div>
+
+                            </div>
+
+
+                            <div class="actions">
+
+                                ${actions}
+
+                            </div>
+
+                        `;
+
+
+                        container.appendChild(card);
+
+                    }
+                );
+
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "EC2 Error:",
+                    error
+                );
+
+
+                container.innerHTML =
+                    `<div class="empty-message">
+                        Backend offline.
+                        Please start Flask.
+                     </div>`;
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LAUNCH EC2 INSTANCE
+        // ==========================================
+
+        async function launchInstance() {
+
+            const nameInput =
+                document.getElementById(
+                    "instanceName"
+                );
+
+
+            const instanceName =
+                nameInput.value.trim();
+
+
+            if (!instanceName) {
+
+                alert(
+                    "Please enter an EC2 instance name."
+                );
+
+                return;
+            }
+
+
+            const confirmation =
+                confirm(
+                    `Launch EC2 instance "${instanceName}"?`
+                );
+
+
+            if (!confirmation) {
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/ec2/launch`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                instance_name:
+                                    instanceName
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        `EC2 instance launched successfully!\n\nInstance ID: ${data.instance_id}`
+                    );
+
+
+                    nameInput.value = "";
+
+
+                    loadInstances();
+
+                }
+
+
+                else {
+
+                    alert(
+                        `Launch failed:\n${data.error}`
+                    );
+
+                }
+
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Launch Error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to connect to the backend."
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // START INSTANCE
+        // ==========================================
+
+        async function startInstance(
+            instanceId
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/ec2/start/${instanceId}`,
+                        {
+                            method: "POST"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        "EC2 instance start command sent successfully!"
+                    );
+
+                    loadInstances();
+
+                }
+
+
+                else {
+
+                    alert(
+                        data.error
+                    );
+
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // STOP INSTANCE
+        // ==========================================
+
+        async function stopInstance(
+            instanceId
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/ec2/stop/${instanceId}`,
+                        {
+                            method: "POST"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        "EC2 instance stop command sent successfully!"
+                    );
+
+                    loadInstances();
+
+                }
+
+
+                else {
+
+                    alert(
+                        data.error
+                    );
+
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // TERMINATE INSTANCE
+        // ==========================================
+
+        async function terminateInstance(
+            instanceId
+        ) {
+
+            const confirmation =
+                confirm(
+                    "Are you sure you want to terminate this EC2 instance?"
+                );
+
+
+            if (!confirmation) {
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/ec2/terminate/${instanceId}`,
+                        {
+                            method: "POST"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        "EC2 instance termination command sent successfully!"
+                    );
+
+                    loadInstances();
+
+                }
+
+
+                else {
+
+                    alert(
+                        data.error
+                    );
+
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+        }
+
+
+        // ==========================================
+        // LOAD PAGE
+        // ==========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadInstances
+        );
+
+    </script>
+
+
+</body>
+
+</html>

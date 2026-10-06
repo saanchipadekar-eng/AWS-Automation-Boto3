@@ -1,0 +1,1150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>S3 Management - AWS Automation</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .page-container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        .s3-section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .s3-section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .form-row input,
+        .form-row select {
+            flex: 1;
+            min-width: 220px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .bucket-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .bucket-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+
+        .bucket-card h3 {
+            margin-top: 0;
+            color: #172554;
+            word-break: break-word;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .file-size {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .success-message {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .empty-message {
+            color: #666;
+            padding: 15px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 700px) {
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .s3-section {
+                padding: 20px;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .file-actions {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AWS Automation
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Dashboard
+            </a>
+
+            <a href="s3.html">
+                S3
+            </a>
+
+            <a href="ec2.html">
+                EC2
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+        <div class="auth-buttons">
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a href="signup.html">
+                Sign Up
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main -->
+
+    <main class="page-container">
+
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <h1>
+                Amazon S3 Management
+            </h1>
+
+            <p>
+                Create and manage your AWS S3 buckets
+                using Python and Boto3.
+            </p>
+
+            <a
+                href="index.html"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+
+        <!-- Create Bucket -->
+
+        <section class="s3-section">
+
+            <h2>
+                🪣 Create New S3 Bucket
+            </h2>
+
+            <div class="form-row">
+
+                <input
+                    type="text"
+                    id="bucketName"
+                    placeholder="Enter unique bucket name"
+                >
+
+                <button
+                    class="btn btn-primary"
+                    onclick="createBucket()"
+                >
+                    Create Bucket
+                </button>
+
+            </div>
+
+            <div
+                id="createMessage"
+                class="status-message"
+            ></div>
+
+        </section>
+
+
+        <!-- Bucket List -->
+
+        <section class="s3-section">
+
+            <h2>
+                📦 Your S3 Buckets
+            </h2>
+
+            <button
+                class="btn btn-success"
+                onclick="loadBuckets()"
+            >
+                🔄 Refresh Buckets
+            </button>
+
+            <div
+                id="bucketList"
+                class="bucket-list"
+                style="margin-top: 20px;"
+            >
+                <p>
+                    Loading buckets...
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- File Operations -->
+
+        <section class="s3-section">
+
+            <h2>
+                📁 File Operations
+            </h2>
+
+            <div class="form-row">
+
+                <select
+                    id="selectedBucket"
+                    onchange="loadFiles()"
+                >
+
+                    <option value="">
+                        Select an S3 bucket
+                    </option>
+
+                </select>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                >
+
+                <button
+                    class="btn btn-primary"
+                    onclick="uploadFile()"
+                >
+                    Upload File
+                </button>
+
+            </div>
+
+            <div
+                id="uploadMessage"
+                class="status-message"
+            ></div>
+
+
+            <!-- File List -->
+
+            <div class="file-list">
+
+                <h3>
+                    Files in Selected Bucket
+                </h3>
+
+                <div id="fileList">
+
+                    <p class="empty-message">
+                        Select a bucket to view files.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 AWS Automation Dashboard
+        </p>
+
+        <p>
+            Built with Python • Flask • Boto3 • AWS
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        const API_URL =
+            "http://127.0.0.1:5000";
+
+
+        // ==========================================
+        // SHOW MESSAGE
+        // ==========================================
+
+        function showMessage(
+            elementId,
+            message,
+            success
+        ) {
+
+            const element =
+                document.getElementById(
+                    elementId
+                );
+
+            element.textContent =
+                message;
+
+            element.className =
+                "status-message " +
+                (
+                    success
+                        ? "success-message"
+                        : "error-message"
+                );
+
+            element.style.display =
+                "block";
+        }
+
+
+        // ==========================================
+        // LOAD BUCKETS
+        // ==========================================
+
+        async function loadBuckets() {
+
+            const bucketList =
+                document.getElementById(
+                    "bucketList"
+                );
+
+            const bucketSelect =
+                document.getElementById(
+                    "selectedBucket"
+                );
+
+
+            bucketList.innerHTML =
+                "<p>Loading buckets...</p>";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/buckets`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    bucketList.innerHTML =
+                        "<p>Unable to load buckets.</p>";
+
+                    return;
+                }
+
+
+                bucketList.innerHTML = "";
+
+
+                bucketSelect.innerHTML =
+                    `
+                    <option value="">
+                        Select an S3 bucket
+                    </option>
+                    `;
+
+
+                if (
+                    data.buckets.length === 0
+                ) {
+
+                    bucketList.innerHTML =
+                        "<p>No S3 buckets found.</p>";
+
+                    return;
+                }
+
+
+                data.buckets.forEach(
+                    bucket => {
+
+                        const card =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        card.className =
+                            "bucket-card";
+
+
+                        card.innerHTML =
+                            `
+                            <h3>
+                                🪣 ${bucket}
+                            </h3>
+
+                            <p>
+                                Amazon S3 Bucket
+                            </p>
+                            `;
+
+
+                        bucketList.appendChild(
+                            card
+                        );
+
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        option.value =
+                            bucket;
+
+
+                        option.textContent =
+                            bucket;
+
+
+                        bucketSelect.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                bucketList.innerHTML =
+                    `
+                    <p>
+                        Backend offline.
+                        Make sure Flask is running.
+                    </p>
+                    `;
+            }
+        }
+
+
+        // ==========================================
+        // CREATE BUCKET
+        // ==========================================
+
+        async function createBucket() {
+
+            const input =
+                document.getElementById(
+                    "bucketName"
+                );
+
+
+            const bucketName =
+                input.value.trim();
+
+
+            if (!bucketName) {
+
+                showMessage(
+                    "createMessage",
+                    "Please enter a bucket name.",
+                    false
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/buckets`,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                bucket_name:
+                                    bucketName
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    showMessage(
+                        "createMessage",
+                        "Bucket created successfully!",
+                        true
+                    );
+
+
+                    input.value = "";
+
+
+                    loadBuckets();
+
+                } else {
+
+                    showMessage(
+                        "createMessage",
+                        data.error ||
+                            "Unable to create bucket.",
+                        false
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                showMessage(
+                    "createMessage",
+                    "Backend connection failed.",
+                    false
+                );
+            }
+        }
+
+
+        // ==========================================
+        // UPLOAD FILE
+        // ==========================================
+
+        async function uploadFile() {
+
+            const bucket =
+                document.getElementById(
+                    "selectedBucket"
+                ).value;
+
+
+            const file =
+                document.getElementById(
+                    "fileInput"
+                ).files[0];
+
+
+            if (!bucket) {
+
+                showMessage(
+                    "uploadMessage",
+                    "Please select a bucket.",
+                    false
+                );
+
+                return;
+            }
+
+
+            if (!file) {
+
+                showMessage(
+                    "uploadMessage",
+                    "Please select a file.",
+                    false
+                );
+
+                return;
+            }
+
+
+            const formData =
+                new FormData();
+
+
+            formData.append(
+                "file",
+                file
+            );
+
+
+            formData.append(
+                "bucket_name",
+                bucket
+            );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/upload`,
+                        {
+
+                            method: "POST",
+
+                            body: formData
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    showMessage(
+                        "uploadMessage",
+                        "File uploaded successfully!",
+                        true
+                    );
+
+
+                    document.getElementById(
+                        "fileInput"
+                    ).value = "";
+
+
+                    loadFiles();
+
+                } else {
+
+                    showMessage(
+                        "uploadMessage",
+                        data.error ||
+                            "Upload failed.",
+                        false
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                showMessage(
+                    "uploadMessage",
+                    "Backend connection failed.",
+                    false
+                );
+            }
+        }
+
+
+        // ==========================================
+        // LOAD FILES
+        // ==========================================
+
+        async function loadFiles() {
+
+            const bucket =
+                document.getElementById(
+                    "selectedBucket"
+                ).value;
+
+
+            const fileList =
+                document.getElementById(
+                    "fileList"
+                );
+
+
+            if (!bucket) {
+
+                fileList.innerHTML =
+                    `
+                    <p class="empty-message">
+                        Select a bucket to view files.
+                    </p>
+                    `;
+
+                return;
+            }
+
+
+            fileList.innerHTML =
+                "<p>Loading files...</p>";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/files?bucket=${encodeURIComponent(bucket)}`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    fileList.innerHTML =
+                        `
+                        <p class="empty-message">
+                            Unable to load files.
+                        </p>
+                        `;
+
+                    return;
+                }
+
+
+                if (data.files.length === 0) {
+
+                    fileList.innerHTML =
+                        `
+                        <p class="empty-message">
+                            No files found in this bucket.
+                        </p>
+                        `;
+
+                    return;
+                }
+
+
+                fileList.innerHTML = "";
+
+
+                data.files.forEach(
+                    file => {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        item.className =
+                            "file-item";
+
+
+                        item.innerHTML =
+                            `
+                            <div class="file-info">
+
+                                <div class="file-name">
+                                    📄 ${file.name}
+                                </div>
+
+                                <div class="file-size">
+                                    Size: ${formatFileSize(file.size)}
+                                </div>
+
+                            </div>
+
+                            <div class="file-actions">
+
+                                <button
+                                    class="btn btn-primary"
+                                    onclick="downloadFile('${encodeURIComponent(file.name)}')"
+                                >
+                                    Download
+                                </button>
+
+                                <button
+                                    class="btn btn-danger"
+                                    onclick="deleteFile('${encodeURIComponent(file.name)}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+                            `;
+
+
+                        fileList.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+
+            } catch (error) {
+
+                console.error(error);
+
+
+                fileList.innerHTML =
+                    `
+                    <p class="empty-message">
+                        Backend connection failed.
+                    </p>
+                    `;
+            }
+        }
+
+
+        // ==========================================
+        // FORMAT FILE SIZE
+        // ==========================================
+
+        function formatFileSize(bytes) {
+
+            if (bytes < 1024) {
+
+                return bytes + " B";
+
+            }
+
+
+            if (bytes < 1024 * 1024) {
+
+                return (
+                    (bytes / 1024).toFixed(2)
+                    + " KB"
+                );
+
+            }
+
+
+            return (
+                (bytes / (1024 * 1024)).toFixed(2)
+                + " MB"
+            );
+        }
+
+
+        // ==========================================
+        // DOWNLOAD FILE
+        // ==========================================
+
+        async function downloadFile(
+            encodedFileName
+        ) {
+
+            const bucket =
+                document.getElementById(
+                    "selectedBucket"
+                ).value;
+
+
+            const fileName =
+                decodeURIComponent(
+                    encodedFileName
+                );
+
+
+            if (!bucket) {
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/download?bucket=${encodeURIComponent(bucket)}&file=${encodeURIComponent(fileName)}`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        "File downloaded successfully to the backend folder."
+                    );
+
+                } else {
+
+                    alert(
+                        data.error ||
+                        "Download failed."
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Backend connection failed."
+                );
+            }
+        }
+
+
+        // ==========================================
+        // DELETE FILE
+        // ==========================================
+
+        async function deleteFile(
+            encodedFileName
+        ) {
+
+            const bucket =
+                document.getElementById(
+                    "selectedBucket"
+                ).value;
+
+
+            const fileName =
+                decodeURIComponent(
+                    encodedFileName
+                );
+
+
+            if (!bucket) {
+
+                return;
+            }
+
+
+            const confirmed =
+                confirm(
+                    `Are you sure you want to delete "${fileName}"?`
+                );
+
+
+            if (!confirmed) {
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/s3/delete`,
+                        {
+
+                            method: "DELETE",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                bucket: bucket,
+
+                                file: fileName
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    alert(
+                        "File deleted successfully!"
+                    );
+
+
+                    loadFiles();
+
+                } else {
+
+                    alert(
+                        data.error ||
+                        "Delete failed."
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Backend connection failed."
+                );
+            }
+        }
+
+
+        // ==========================================
+        // PAGE LOAD
+        // ==========================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadBuckets
+        );
+
+    </script>
+
+</body>
+
+</html>

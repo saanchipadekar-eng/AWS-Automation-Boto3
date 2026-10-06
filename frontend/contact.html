@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Contact - AWS Automation Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Main */
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 17px;
+        }
+
+        /* Contact Grid */
+
+        .contact-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1.4fr;
+
+            gap: 25px;
+        }
+
+        /* Information */
+
+        .contact-info {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .contact-info h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            margin-bottom: 22px;
+        }
+
+        .contact-item h3 {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .contact-item p {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Form */
+
+        .contact-form {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .contact-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+
+            resize: vertical;
+        }
+
+        .submit-button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* Success Message */
+
+        #successMessage {
+
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            border-radius: 7px;
+
+            text-align: center;
+        }
+
+        /* Footer */
+
+        footer {
+
+            margin-top: 50px;
+
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        footer p {
+
+            color: #d1d5db;
+
+            margin-top: 5px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 750px) {
+
+            nav {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+
+                margin-top: 15px;
+
+                gap: 15px;
+
+                flex-wrap: wrap;
+            }
+
+            .contact-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+        AWS Automation Dashboard
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="s3.html">
+                S3
+            </a>
+        </li>
+
+        <li>
+            <a href="ec2.html">
+                EC2
+            </a>
+        </li>
+
+        <li>
+            <a href="about.html">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="contact.html">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Main -->
+
+<div class="container">
+
+
+    <div class="header">
+
+        <h1>
+            Contact Us
+        </h1>
+
+        <p>
+            Have a question about the AWS Automation Dashboard?
+            Send us a message.
+        </p>
+
+    </div>
+
+
+    <div class="contact-grid">
+
+
+        <!-- Contact Information -->
+
+        <div class="contact-info">
+
+            <h2>
+                Project Information
+            </h2>
+
+
+            <div class="contact-item">
+
+                <h3>
+                    📧 Email
+                </h3>
+
+                <p>
+                    awsautomation@example.com
+                </p>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <h3>
+                    💻 Project
+                </h3>
+
+                <p>
+                    AWS Automation Dashboard
+                </p>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <h3>
+                    🐍 Technology
+                </h3>
+
+                <p>
+                    Python, Flask, Boto3 and AWS
+                </p>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <h3>
+                    ☁️ AWS Services
+                </h3>
+
+                <p>
+                    Amazon S3, Amazon EC2 and AWS IAM
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Contact Form -->
+
+        <div class="contact-form">
+
+            <h2>
+                Send a Message
+            </h2>
+
+
+            <form id="contactForm">
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        placeholder="Enter your message"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Send Message
+                </button>
+
+
+            </form>
+
+
+            <div id="successMessage">
+
+                Message submitted successfully!
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <h3>
+        AWS Automation Dashboard
+    </h3>
+
+    <p>
+        Python • Flask • Boto3 • AWS
+    </p>
+
+</footer>
+
+
+<script>
+
+    document
+        .getElementById("contactForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                document
+                    .getElementById("successMessage")
+                    .style.display = "block";
+
+                document
+                    .getElementById("contactForm")
+                    .reset();
+
+            }
+        );
+
+</script>
+
+
+</body>
+
+</html>

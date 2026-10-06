@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>About - AWS Automation Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+            padding: 18px 40px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Main */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: white;
+            padding: 45px;
+            border-radius: 14px;
+            text-align: center;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* Sections */
+
+        .section {
+            background: white;
+            margin-top: 25px;
+            padding: 30px;
+
+            border-radius: 14px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            font-size: 25px;
+        }
+
+        .section p {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        /* Technology cards */
+
+        .technology-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 20px;
+        }
+
+        .technology-card {
+            background: #f9fafb;
+
+            padding: 22px;
+
+            border-radius: 10px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+        .technology-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .technology-card p {
+            font-size: 14px;
+        }
+
+        /* Workflow */
+
+        .workflow {
+            margin-top: 20px;
+        }
+
+        .workflow-step {
+            padding: 15px;
+
+            margin-bottom: 12px;
+
+            background: #f9fafb;
+
+            border-left: 4px solid #2563eb;
+
+            border-radius: 6px;
+        }
+
+        .workflow-step strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Features */
+
+        .features {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .features li {
+            margin-bottom: 10px;
+            color: #4b5563;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 50px;
+
+            background: #111827;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        footer p {
+            color: #d1d5db;
+            margin-top: 5px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 18px 20px;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+
+                gap: 15px;
+
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                padding: 30px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .section {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <div class="logo">
+        AWS Automation Dashboard
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="s3.html">
+                S3
+            </a>
+        </li>
+
+        <li>
+            <a href="ec2.html">
+                EC2
+            </a>
+        </li>
+
+        <li>
+            <a href="about.html">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="contact.html">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Main Content -->
+
+<div class="container">
+
+
+    <!-- Hero -->
+
+    <div class="hero">
+
+        <h1>
+            About AWS Automation Dashboard
+        </h1>
+
+        <p>
+            A web-based AWS resource management and
+            automation project built using Python,
+            Flask, Boto3 and Amazon Web Services.
+        </p>
+
+    </div>
+
+
+    <!-- Project Overview -->
+
+    <div class="section">
+
+        <h2>
+            Project Overview
+        </h2>
+
+        <p>
+            Managing AWS resources manually can require
+            many repetitive steps through the AWS Management
+            Console.
+        </p>
+
+        <p>
+            The AWS Automation Dashboard provides a simple
+            web interface that allows users to perform
+            common AWS operations from one dashboard.
+        </p>
+
+        <p>
+            The project focuses on automating Amazon S3
+            and Amazon EC2 operations using Python and
+            the AWS SDK for Python, Boto3.
+        </p>
+
+    </div>
+
+
+    <!-- Problem -->
+
+    <div class="section">
+
+        <h2>
+            Problem Statement
+        </h2>
+
+        <p>
+            AWS resource management can become time-consuming
+            when the same operations need to be performed
+            repeatedly.
+        </p>
+
+        <p>
+            Users may need to navigate through different
+            AWS Console pages to create buckets, upload files,
+            launch EC2 instances, or manage instance states.
+        </p>
+
+    </div>
+
+
+    <!-- Solution -->
+
+    <div class="section">
+
+        <h2>
+            Our Solution
+        </h2>
+
+        <p>
+            This project provides a centralized dashboard
+            for AWS automation.
+        </p>
+
+        <p>
+            The frontend communicates with a Python Flask
+            backend. The backend uses Boto3 to communicate
+            with AWS services through IAM permissions.
+        </p>
+
+    </div>
+
+
+    <!-- Technologies -->
+
+    <div class="section">
+
+        <h2>
+            Technologies Used
+        </h2>
+
+        <div class="technology-grid">
+
+
+            <div class="technology-card">
+
+                <h3>
+                    🐍 Python
+                </h3>
+
+                <p>
+                    Used as the main programming language
+                    for AWS automation and backend development.
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <h3>
+                    🌐 Flask
+                </h3>
+
+                <p>
+                    Used to create the backend API and
+                    connect the frontend with AWS services.
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <h3>
+                    ☁️ Boto3
+                </h3>
+
+                <p>
+                    AWS SDK for Python used to automate
+                    S3 and EC2 operations.
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <h3>
+                    🗄️ Amazon S3
+                </h3>
+
+                <p>
+                    Used for bucket management and
+                    file storage operations.
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <h3>
+                    💻 Amazon EC2
+                </h3>
+
+                <p>
+                    Used to launch and manage virtual
+                    servers in AWS.
+                </p>
+
+            </div>
+
+
+            <div class="technology-card">
+
+                <h3>
+                    🔐 AWS IAM
+                </h3>
+
+                <p>
+                    Used to control permissions for
+                    AWS resource automation.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Features -->
+
+    <div class="section">
+
+        <h2>
+            Key Features
+        </h2>
+
+        <ul class="features">
+
+            <li>
+                View AWS S3 buckets
+            </li>
+
+            <li>
+                Create new S3 buckets
+            </li>
+
+            <li>
+                Upload files to S3
+            </li>
+
+            <li>
+                Download files from S3
+            </li>
+
+            <li>
+                Delete S3 files
+            </li>
+
+            <li>
+                View EC2 instances
+            </li>
+
+            <li>
+                Launch EC2 instances
+            </li>
+
+            <li>
+                Start EC2 instances
+            </li>
+
+            <li>
+                Stop EC2 instances
+            </li>
+
+            <li>
+                Terminate EC2 instances
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Workflow -->
+
+    <div class="section">
+
+        <h2>
+            Project Workflow
+        </h2>
+
+        <div class="workflow">
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 1 — User
+                </strong>
+
+                User interacts with the web dashboard.
+                
+            </div>
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 2 — Frontend
+                </strong>
+
+                HTML, CSS and JavaScript send requests
+                to the backend.
+                
+            </div>
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 3 — Flask Backend
+                </strong>
+
+                Flask receives the request and processes
+                the required AWS operation.
+                
+            </div>
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 4 — Boto3
+                </strong>
+
+                Boto3 communicates with AWS services.
+                
+            </div>
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 5 — IAM
+                </strong>
+
+                AWS IAM permissions determine which
+                operations are allowed.
+                
+            </div>
+
+
+            <div class="workflow-step">
+
+                <strong>
+                    Step 6 — AWS Services
+                </strong>
+
+                Amazon S3 or Amazon EC2 performs the
+                requested operation.
+                
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Learning -->
+
+    <div class="section">
+
+        <h2>
+            What This Project Demonstrates
+        </h2>
+
+        <p>
+            This project demonstrates practical knowledge
+            of Python programming, REST APIs, Flask,
+            AWS IAM, Amazon S3, Amazon EC2 and Boto3.
+        </p>
+
+        <p>
+            It also demonstrates how a web application can
+            interact with cloud infrastructure through
+            programmatic automation.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <h3>
+        AWS Automation Dashboard
+    </h3>
+
+    <p>
+        Python • Flask • Boto3 • AWS
+    </p>
+
+    <p>
+        AWS Automation Project
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>
